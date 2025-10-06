@@ -1,0 +1,17 @@
+package fr.magictintin.micasendmc;
+
+
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+
+import net.fabricmc.api.ClientModInitializer;
+
+public class MicaClientMC implements ClientModInitializer {
+    public static final String MOD_ID = "micasendmc";
+    public static final Logger LOGGER = LoggerFactory.getLogger("micalogger");
+
+    @Override
+    public void onInitializeClient() {
+        LOGGER.warn("OSKUR");
+    }
+}
