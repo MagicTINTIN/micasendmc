@@ -33,6 +33,9 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	
+    // implementation 'org.java-websocket:Java-WebSocket:1.5.2'
+    // implementation 'javax.servlet:javax.servlet-api:4.0.1'
+	implementation 'org.glassfish.tyrus.bundles:tyrus-standalone-client:1.18'
 }
 
 processResources {
