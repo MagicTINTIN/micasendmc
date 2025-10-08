@@ -29,7 +29,7 @@ public class MicaSend implements ModInitializer {
 
 	protected final static String MICASEND_URL = "https://micasend.magictintin.fr";
 	protected static final String WS_URL = "wss://msws.magictintin.fr:8443";
-	protected static WebsocketClient ws;
+	protected static MicasendWebsocketClient ws;
 	protected static int maxID = 0;
 
 	protected void showMessage(Message msg) {
@@ -74,7 +74,7 @@ public class MicaSend implements ModInitializer {
 			System.out.println("Sent information minecraft has been started...");
 		});
 
-		ws = new WebsocketClient(WS_URL, () -> fetchMessages());
+		ws = new MicasendWebsocketClient(WS_URL, () -> fetchMessages());
 	}
 
 	private synchronized void fetchMessages() {
