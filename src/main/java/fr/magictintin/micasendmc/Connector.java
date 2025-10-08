@@ -3,7 +3,6 @@ package fr.magictintin.micasendmc;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ public class Connector {
     public static ArrayList<Message> fetchMessages(String jsonUrl) {
 
         try {
-            HttpURLConnection connection = (HttpURLConnection) new URL(jsonUrl + GETJSON).openConnection();
+            HttpURLConnection connection = (HttpURLConnection) new URI(jsonUrl + GETJSON).toURL().openConnection();
             connection.setRequestMethod("GET");
 
             InputStreamReader reader = new InputStreamReader(connection.getInputStream());

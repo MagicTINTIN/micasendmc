@@ -1,8 +1,5 @@
 package fr.magictintin.micasendmc;
 
-import org.slf4j.LoggerFactory;
-
-import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 
 // import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;

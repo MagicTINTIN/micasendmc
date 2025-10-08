@@ -1,9 +1,8 @@
 package fr.magictintin.micasendmc;
 
 import java.util.ArrayList;
+import org.apache.commons.text.StringEscapeUtils;
 
-import org.apache.commons.lang3.StringEscapeUtils;
-// import org.apache.commons.lang3.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,11 +12,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.client.MinecraftClient;
 
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.network.message.MessageType;
 
 public class MicaSend implements ModInitializer {
 	public static final String MOD_ID = "micasendmc";
@@ -35,17 +30,17 @@ public class MicaSend implements ModInitializer {
 	protected void showMessage(Message msg) {
 		MinecraftClient client = MinecraftClient.getInstance();
 		// if (client.player != null) {
-		// 	client.player.sendMessage(Text.literal("<" + msg.sender + "> " + msg.content), false);
+		// client.player.sendMessage(Text.literal("<" + msg.sender + "> " +
+		// msg.content), false);
 		// }
 
 		client.execute(() -> {
-            if (client.player != null) {
-                client.player.sendMessage(
-                    Text.literal("<" + msg.sender + "> " + msg.content), //.formatted(Formatting.YELLOW),
-                    false
-                );
-            }
-        });
+			if (client.player != null) {
+				client.player.sendMessage(
+						Text.literal("<" + msg.sender + "> " + msg.content), // .formatted(Formatting.YELLOW),
+						false);
+			}
+		});
 	}
 
 	@Override
@@ -64,6 +59,7 @@ public class MicaSend implements ModInitializer {
 		// .literal("msend")
 		// .executes());
 		// });
+		ws = new MicasendWebsocketClient(WS_URL, () -> fetchMessages());
 		LOGGER.info("Micasend started successfully!");
 
 		String username = MinecraftClient.getInstance().getSession()
@@ -71,10 +67,10 @@ public class MicaSend implements ModInitializer {
 		Connector.sendMessage(MICASEND_URL, username, "Started minecraft", () -> {
 			// ws.sendMessage("new micasend message");
 			// fetchMessages();
+			MicaSend.ws.sendMessage("new micasend message");
 			System.out.println("Sent information minecraft has been started...");
 		});
 
-		ws = new MicasendWebsocketClient(WS_URL, () -> fetchMessages());
 	}
 
 	private synchronized void fetchMessages() {
@@ -82,10 +78,11 @@ public class MicaSend implements ModInitializer {
 		for (Message msg : list) {
 			if (msg.id() <= maxID)
 				continue;
-			msg.content = StringEscapeUtils.unescapeHtml4(msg.content.replace("§", " "));
+			msg.content = StringEscapeUtils.escapeHtml4(msg.content.replace("§", " "));
 			System.out.println("MESSAGE: [" + msg.sender + "] " + msg.content);
 
 			showMessage(msg);
+			maxID = msg.id();
 		}
 	}
 

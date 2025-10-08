@@ -1,7 +1,6 @@
 package fr.magictintin.micasendmc;
 
 import java.net.URI;
-import java.nio.ByteBuffer;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
