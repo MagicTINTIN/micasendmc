@@ -30,6 +30,7 @@ public final class MSend {
     Connector.sendMessage(MicaSend.MICASEND_URL, username, message, () -> {
 			// ws.sendMessage("new micasend message");
 			// fetchMessages();
+      MicaSend.ws.sendMessage("new micasend message");
 			System.out.println("msg sent");
 		});
     return 0;
