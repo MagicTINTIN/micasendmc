@@ -78,7 +78,7 @@ public class MicaSend implements ModInitializer {
 		for (Message msg : list) {
 			if (msg.id() <= maxID)
 				continue;
-			msg.content = StringEscapeUtils.escapeHtml4(msg.content.replace("§", " "));
+			msg.content = StringEscapeUtils.unescapeHtml4(msg.content.replace("§", " "));
 			System.out.println("MESSAGE: [" + msg.sender + "] " + msg.content);
 
 			showMessage(msg);
