@@ -51,7 +51,7 @@ public class MicasendWebsocketClient extends WebSocketClient {
 
     public void sendMessage(String message) {
         if (isOpen()) {
-            send(message);
+            send("micasend:" + message);
         }
         else {
             connect();
